@@ -6,22 +6,24 @@ from api.controllers.user_controller import create_user
 
 auth = Blueprint('auth', __name__)
 
-@auth.route("/", methods=['GET'])
+@auth.route("/hello", methods=['GET'])
 def hello_world():
     return jsonify({"dados":"Hello, World!"}),200
 
 @auth.route("/register", methods=['POST'])
 def register():
-    schema = UserSchema()
+    user_schema = UserSchema()
+
+    try:
+        user_data = user_schema.load(request.json)
+    except ValidationError as err:
+        return jsonify({"erro": "payload inválido"}), 400
     
     try:
-        result = schema.load(request.json)
-    except ValidationError as err:
-        return jsonify({"erro":"payload inválido"}),400
+        created_user = create_user(user_data['nome'], user_data['documento'], user_data['username'], user_data['password'], user_data['email'])
+    except ValueError as err:
+        return jsonify({"msg": "erro ao criar usuário: "+str(err)}), 400
     
-    response = create_user(result['nome'], result['documento'], result['username'], result['password'], result['email'])
+    return jsonify({"msg": "successful", "dados": created_user}), 200
 
-    return response
-    
-    
     

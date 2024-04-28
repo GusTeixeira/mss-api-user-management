@@ -9,14 +9,11 @@
             "type": "debugpy",
             "request": "launch",
             "module": "flask",
-            "env": {
-                "FLASK_APP": "app.py",
-                "FLASK_DEBUG": "1",
-                "DATABASE_URL": "postgresql://postgres:300402@localhost:5432/mss",
-                "SECRET_KEY":"12823004uj8idhxn78u912juwws09qojuh98712u09ejuh"
-            },
+            "envFile": "${workspaceFolder}/.env",
             "args": [
                 "run",
+                "--port",
+                "8000",
                 "--no-debugger"
             ],
             "jinja": true,

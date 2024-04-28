@@ -1,11 +1,10 @@
-import json
+from sqlalchemy import select
 from api.models.user_models import User
-
 from api.databases.config import db
 class UserRepository:
 
     def find_by_username(self, username):
-        return User.query.filter_by(username=username).first()
+        return db.session.scalars(select(User.username).where(User.username==username)).first()
 
     def create_user(self, nome, documento, username, password, email):
         new_user = User(
