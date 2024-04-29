@@ -5,7 +5,7 @@ class UserRepository:
 
     def find_by_username(self, username):
         return db.session.scalars(select(User.username).where(User.username==username)).first()
-
+    
     def create_user(self, nome, documento, username, password, email):
         new_user = User(
             nome=nome,
@@ -22,4 +22,9 @@ class UserRepository:
         
         return new_user
 
+    def find_password_by_username(self, username):
+        return db.session.scalars(select(User.password).where(User.username==username)).first()
+    
+    def compare_passwords(self, password, input_password):
+        return User.check_password(password, input_password)
 

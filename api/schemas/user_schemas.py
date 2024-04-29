@@ -9,3 +9,10 @@ class UserSchema(Schema):
 
     class Meta:
         unknown = INCLUDE
+        
+class LoginSchema(Schema):
+    username = fields.Str(required=False)
+    password = fields.Str(required=True)
+
+    class Meta:
+        unknown = INCLUDE
