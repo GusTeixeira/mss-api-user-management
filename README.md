@@ -2,16 +2,13 @@
 
 
 ## Propósito
-Este repositório tem como objetivo organizar  arquivos de um projeto de API Django REST, para automatizar o tratamento de chamados.
+Este repositório tem como objetivo organizar arquivos de um projeto de API Flask, para possibilitar o gerenciamento de usuários do sistema Management School System da YggBrasil Software.
 
-Assim as squads de desenvolvimento não precisarão mais se envolver nesse processo. 
-
-A primeira funcionalidade é a substituição de documentos.
-
+A primeira funcionalidade é o registro de um novo usuário.
 
 ---
 ## 🛢️ Stack
-- Python / Django REST
+- Python / Flask
 
 
 ---
