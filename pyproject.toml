@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "mss-api-user-management"
+version = "0.1.0"
+description = "Este repositório tem como objetivo organizar arquivos de um projeto de API Flask, para possibilitar o gerenciamento de usuários do sistema Management School System da YggBrasil Software."
+authors = ["GusTeixeira12 <gusteixeira3004@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "3.0.3"
+flask-sqlalchemy = "3.1.1"
+psycopg2-binary = "2.9.9"
+psycopg2 = "2.9.9"
+pycpfcnpj = "1.8"
+email-validator = "2.2.0"
+flask-cors = "4.0.1"
+marshmallow = "^3.21.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

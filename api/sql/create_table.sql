@@ -9,7 +9,8 @@ CREATE TABLE auth.users(
     email varchar(255) not null,
     ativo boolean,
     created_at timestamp default now() null,
-    updated_at timestamp
+    updated_at timestamp,
+    delete_at timestamp
 );
 
 CREATE TABLE auth.permissions(

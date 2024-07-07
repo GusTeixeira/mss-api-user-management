@@ -13,6 +13,7 @@ class User(db.Model):
     ativo = db.Column(db.Boolean)
     created_at = db.Column(db.DateTime, default = db.func.now())
     updated_at = db.Column(db.DateTime)
+    deleted_at = db.Column(db.DateTime)
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
