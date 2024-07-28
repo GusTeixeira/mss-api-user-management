@@ -25,7 +25,7 @@ CREATE TABLE auth.permissions(
 CREATE TABLE auth.groups(
     id serial primary key,
     nome varchar(100) not null,
-    descricao varchar
+    descricao varchar,
     ativo boolean,
     created_at timestamp default now() null,
     updated_at timestamp

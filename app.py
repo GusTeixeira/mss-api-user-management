@@ -1,7 +1,7 @@
 from flask import Flask
 from config import Config
 from flask_cors import CORS
-from api.routes.user_routes import auth
+from api.endpoints.user_routes import auth
 from api.databases.config import db
 
 app = Flask(__name__)

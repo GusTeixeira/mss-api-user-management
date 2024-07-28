@@ -1,5 +1,7 @@
+from typing import Any
 from werkzeug.security import generate_password_hash, check_password_hash
 from api.databases.config import db
+
 class User(db.Model):
     __tablename__ = 'users'
     __table_args__ = {'schema': 'auth'}
@@ -42,6 +44,16 @@ class Group(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.now(), nullable=True)
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now(), nullable=True)
 
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "id": self.id,
+            "nome": self.nome,
+            "descricao": self.descricao,
+            "ativo": self.ativo,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
+        }
+
 class Permission(db.Model):
     __tablename__ = 'permissions'
     __table_args__ = {'schema': 'auth'}
@@ -58,36 +70,36 @@ class UserPermission(db.Model):
     __table_args__ = {'schema': 'auth'}
     
     id = db.Column(db.Integer, primary_key=True)
-    permission_id = db.Column(db.Integer, db.ForeignKey('permissions.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    permission_id = db.Column(db.Integer, db.ForeignKey('auth.permissions.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('auth.users.id'))
     created_at = db.Column(db.DateTime, default=db.func.now(), nullable=True)
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now(), nullable=True)
 
-    permission = db.relationship('Permission')
-    user = db.relationship('User')
+    permission = db.relationship('Permission', backref='user_permissions')
+    user = db.relationship('User', backref='user_permissions')
 
 class GroupPermission(db.Model):
     __tablename__ = 'group_permissions'
     __table_args__ = {'schema': 'auth'}
     
     id = db.Column(db.Integer, primary_key=True)
-    permission_id = db.Column(db.Integer, db.ForeignKey('permissions.id'))
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'))
+    permission_id = db.Column(db.Integer, db.ForeignKey('auth.permissions.id'))
+    group_id = db.Column(db.Integer, db.ForeignKey('auth.groups.id'))
     created_at = db.Column(db.DateTime, default=db.func.now(), nullable=True)
     updated_at = db.Column(db.DateTime, default=db.func.now(), nullable=True)
 
-    permission = db.relationship('Permission')
-    group = db.relationship('Group')
+    permission = db.relationship('Permission', backref='group_permissions')
+    group = db.relationship('Group', backref='group_permissions')
 
 class GroupUser(db.Model):
     __tablename__ = 'users_group'
     __table_args__ = {'schema': 'auth'}
     
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('auth.users.id'))
+    group_id = db.Column(db.Integer, db.ForeignKey('auth.groups.id'))
     created_at = db.Column(db.DateTime, default=db.func.now(), nullable=True)
     updated_at = db.Column(db.DateTime, default=db.func.now(), nullable=True)
 
-    user = db.relationship('User')
-    group = db.relationship('Group')
+    user = db.relationship('User', backref='groups')
+    group = db.relationship('Group', backref='users')

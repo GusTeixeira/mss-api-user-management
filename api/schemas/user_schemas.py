@@ -9,7 +9,15 @@ class UserSchema(Schema):
 
     class Meta:
         unknown = INCLUDE
-        
+    
+class UpdateUserSchema(Schema):
+    nome = fields.Str(required=False)
+    documento = fields.Str(required=False)
+    username = fields.Str(required=False)
+    email = fields.Email(required=False)
+
+    class Meta:
+        unknown = INCLUDE
 class LoginSchema(Schema):
     username = fields.Str(required=False)
     password = fields.Str(required=True)
