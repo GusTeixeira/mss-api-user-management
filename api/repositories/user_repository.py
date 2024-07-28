@@ -12,6 +12,13 @@ class UserRepository:
         except SQLAlchemyError as e:
             db.session.rollback()
             raise ValueError(f"erro ao buscar usuário pelo username: {e}")
+    
+    def find_by_username(self, username):
+        try:
+            return db.session.scalars(select(User).where(User.username == username)).first()
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            raise ValueError(f"erro ao buscar usuário pelo username: {e}")
 
     def find_by_id(self, id):
         try:

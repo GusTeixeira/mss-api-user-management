@@ -1,3 +1,4 @@
+from typing import Literal
 from pycpfcnpj import cpf, cnpj
 from email_validator import validate_email, EmailNotValidError
 from api.repositories.user_repository import UserRepository
@@ -32,7 +33,7 @@ def create_user(nome, documento, username, password, email):
     
     return created_user
 
-def delete_user(id):
+def delete_user(id)  -> Literal[True]:
     try:
         success = user_repo.delete_user_by_id(id)
         if not success:

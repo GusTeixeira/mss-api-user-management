@@ -10,7 +10,7 @@ CREATE TABLE auth.users(
     ativo boolean,
     created_at timestamp default now() null,
     updated_at timestamp,
-    delete_at timestamp
+    deleted_at timestamp
 );
 
 CREATE TABLE auth.permissions(
